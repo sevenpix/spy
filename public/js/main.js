@@ -2,7 +2,16 @@ var watchID;
 var geoLoc;
 var socket = io();
 
-function showLocation(position) {
+function generateID() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function getLocation(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
     var acc = position.coords.accuracy;
@@ -11,7 +20,7 @@ function showLocation(position) {
     $('.long').append(long + "<br>");
     $('.acc').append(acc + "<br>");
 
-    socket.emit('location', { lat: lat, lon: long, acc: acc });
+    socket.emit('location', { lat: lat, lon: long, acc: acc, client: clientID });
 }
 
 function errorHandler(err) {
@@ -25,14 +34,18 @@ function errorHandler(err) {
 }
 
 function getLocationUpdate(){
+
     if(navigator.geolocation){
         // timeout at 60000 milliseconds (60 seconds)
         var options = { timeout:60000 };
         geoLoc = navigator.geolocation;
-        watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
+        watchID = geoLoc.watchPosition(getLocation, errorHandler, options);
     }
 
     else{
         alert("Sorry, browser does not support geolocation!");
     }
+
 }
+
+var clientID = generateID();
