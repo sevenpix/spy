@@ -1,5 +1,9 @@
 /*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
 
+html, body {
+    height:100%;
+}
+
 html {
     color: #222;
     font-size: 1em;
@@ -154,8 +158,9 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
-
-
+#mapid {
+    height:100%;
+}
 
 
 

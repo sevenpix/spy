@@ -1,6 +1,7 @@
 var watchID;
 var geoLoc;
 var socket = io();
+var mymap;
 
 function generateID() {
     function s4() {
@@ -49,3 +50,32 @@ function getLocationUpdate(){
 }
 
 var clientID = generateID();
+
+socket.on('location', function(client){
+    lat = client.lat;
+    lon = client.lon;
+
+    if (!mymap) {
+        mymap = L.map('mapid').setView([lat, lon], 13);
+    }
+
+    mapInitialized = true;
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.satellite',
+        accessToken: 'pk.eyJ1IjoibWFwYm94MTM0MjM1IiwiYSI6ImNpd3cycWthbTAxa2MyeXBybHYwaXUxeG4ifQ.YkxkHkHwLm3whVsvUwc2fw'
+    }).addTo(mymap);
+
+    var circle = L.circle([lat, lon], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 100
+    }).addTo(mymap);
+});
+
+$(function() {
+    getLocationUpdate();
+});

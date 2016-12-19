@@ -15,6 +15,7 @@ app.get('/map', function(req, res) {
 
 io.on('connection', function(socket) {
   socket.on('location', function(location) {
+    io.emit('location', location);
     console.log('incoming "location" - Lat: ' + location.lat + ' Lon: ' + location.lon);
   });
 });

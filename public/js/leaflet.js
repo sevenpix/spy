@@ -1,3 +1,5 @@
+var lat;
+var lon;
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -5,9 +7,11 @@ function getLocation() {
     } 
 }
 
-getLocation();
-
-
+socket.on('location', function(client){
+    lat = client.lat;
+    lon = client.lon;
+    console.log(client);
+});
 
 function initMap(position) {
 
