@@ -25,6 +25,7 @@
                 <h4>You are here:</h4>
                 <p class="lat">Lat: </p>
                 <p class="long">Long: </p>
+                <p class="acc">Accuracy: </p>
 
                 <form>
                     <input type="button" onclick="getLocationUpdate()" value="Watch Update"/>
@@ -36,9 +37,5 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/main.js"></script>
-        <script>
-          var socket = io();
-          socket.emit('location', {lat: 123, lon: 321});
-        </script>
     </body>
 </html>

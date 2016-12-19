@@ -1,14 +1,17 @@
 var watchID;
 var geoLoc;
+var socket = io();
 
 function showLocation(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
+    var acc = position.coords.accuracy;
 
     $('.lat').append(lat + "<br>");
     $('.long').append(long + "<br>");
+    $('.acc').append(acc + "<br>");
 
-    console.log("updated")
+    socket.emit('location', { lat: lat, lon: long, acc: acc });
 }
 
 function errorHandler(err) {
@@ -24,7 +27,7 @@ function errorHandler(err) {
 function getLocationUpdate(){
     if(navigator.geolocation){
         // timeout at 60000 milliseconds (60 seconds)
-        var options = {timeout:60000};
+        var options = { timeout:60000 };
         geoLoc = navigator.geolocation;
         watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
     }
