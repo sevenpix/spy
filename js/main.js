@@ -5,9 +5,12 @@ $(function(){
 
             var lat = position.coords.latitude;
             var long = position.coords.longitude;
+            var acc = position.coords.accuracy;
 
             $('.lat').append(lat);
             $('.long').append(long);
+
+            navigator.vibrate(1000);
 
         });
 
