@@ -1,2 +1,2 @@
-# Spy: Node Device Tracker
+# Node Device Tracker
 track multiple devices on a map
