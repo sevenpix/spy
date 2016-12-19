@@ -1,21 +1,35 @@
-$(function(){
-    if ("geolocation" in navigator) {
-        /* geolocation IS available */
-        navigator.geolocation.getCurrentPosition(function(position) {
+var watchID;
+var geoLoc;
 
-            var lat = position.coords.latitude;
-            var long = position.coords.longitude;
-            var acc = position.coords.accuracy;
+function showLocation(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
 
-            $('.lat').append(lat);
-            $('.long').append(long);
+    $('.lat').append(lat + "<br>");
+    $('.long').append(long + "<br>");
 
-            navigator.vibrate(1000);
+    console.log("updated")
+}
 
-        });
-
-    } else {
-        /* geolocation IS NOT available */
-        console.log("not available");
+function errorHandler(err) {
+    if(err.code == 1) {
+        alert("Error: Access is denied!");
     }
-});
+
+    else if( err.code == 2) {
+        alert("Error: Position is unavailable!");
+    }
+}
+
+function getLocationUpdate(){
+    if(navigator.geolocation){
+        // timeout at 60000 milliseconds (60 seconds)
+        var options = {timeout:60000};
+        geoLoc = navigator.geolocation;
+        watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
+    }
+
+    else{
+        alert("Sorry, browser does not support geolocation!");
+    }
+}
