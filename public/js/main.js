@@ -82,7 +82,7 @@ socket.on('location', function(client){
     }).addTo(mymap);
 
     var circle = L.circle([lat, lon], {
-        color: 'red',
+        color: col,
         fillColor: '#fff',
         fillOpacity: 0.1,
         radius: 10
