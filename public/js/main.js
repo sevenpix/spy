@@ -47,8 +47,9 @@ function errorHandler(err) {
 function getLocationUpdate(){
 
     if(navigator.geolocation){
-        // timeout at 60000 milliseconds (60 seconds)
-        var options = { timeout:60000 };
+        var options = {
+          enableHighAccuracy: true,
+        };
         geoLoc = navigator.geolocation;
         watchID = geoLoc.watchPosition(getLocation, errorHandler, options);
     }
@@ -70,21 +71,18 @@ socket.on('location', function(client){
 
     if (!mymap) {
         mymap = L.map('mapid').setView([lat, lon], 13);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.satellite',
+            accessToken: 'pk.eyJ1IjoibWFwYm94MTM0MjM1IiwiYSI6ImNpd3cycWthbTAxa2MyeXBybHYwaXUxeG4ifQ.YkxkHkHwLm3whVsvUwc2fw'
+        }).addTo(mymap);
     }
-
-    mapInitialized = true;
-
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.satellite',
-        accessToken: 'pk.eyJ1IjoibWFwYm94MTM0MjM1IiwiYSI6ImNpd3cycWthbTAxa2MyeXBybHYwaXUxeG4ifQ.YkxkHkHwLm3whVsvUwc2fw'
-    }).addTo(mymap);
 
     var circle = L.circle([lat, lon], {
         color: col,
-        fillColor: '#fff',
-        fillOpacity: 0.1,
+        // fillColor: '#fff',
+        fillOpacity: 0.8,
         radius: 10
     });
 
