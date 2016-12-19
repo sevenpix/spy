@@ -2,6 +2,7 @@ var watchID;
 var geoLoc;
 var socket = io();
 var mymap;
+var clients = {};
 
 function generateID() {
     function s4() {
@@ -10,6 +11,15 @@ function generateID() {
             .substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function generateColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 function getLocation(position) {
@@ -21,7 +31,7 @@ function getLocation(position) {
     $('.long').append(long + "<br>");
     $('.acc').append(acc + "<br>");
 
-    socket.emit('location', { lat: lat, lon: long, acc: acc, client: clientID });
+    socket.emit('location', { lat: lat, lon: long, acc: acc, col: clientColor, id: clientID });
 }
 
 function errorHandler(err) {
@@ -50,10 +60,13 @@ function getLocationUpdate(){
 }
 
 var clientID = generateID();
+var clientColor = generateColor();
 
 socket.on('location', function(client){
-    lat = client.lat;
-    lon = client.lon;
+    var lat = client.lat;
+    var lon = client.lon;
+    var id = client.id;
+    var col = client.col;
 
     if (!mymap) {
         mymap = L.map('mapid').setView([lat, lon], 13);
@@ -70,10 +83,17 @@ socket.on('location', function(client){
 
     var circle = L.circle([lat, lon], {
         color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 100
-    }).addTo(mymap);
+        fillColor: '#fff',
+        fillOpacity: 0.1,
+        radius: 10
+    });
+
+    if (!(id in clients)){
+        clients[id] = circle.addTo(mymap);
+    } else {
+        clients[id].setLatLng([lat, lon]).setStyle({color: col});
+    }
+
 });
 
 $(function() {
