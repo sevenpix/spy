@@ -6,34 +6,27 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Spy</title>
+        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     </head>
     <body>
 
-        <div class="main-container">
-            <div class="main wrapper clearfix">
+        <div id="mapid"></div>
 
-                <h1>SPY</h1>
-                <h4>You are here:</h4>
-                <p class="lat">Lat: </p>
-                <p class="long">Long: </p>
-
-                <form>
-                    <input type="button" onclick="getLocationUpdate()" value="Watch Update"/>
-                </form>
-
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="js/main.js"></script>
+
+        <script src="js/leaflet.js"></script>
+
     </body>
 </html>
