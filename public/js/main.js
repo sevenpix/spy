@@ -34,7 +34,7 @@ function getLocation(position) {
     $('.long').append(long + "<br>");
     $('.acc').append(acc + "<br>");
 
-    socket.emit('location', { lat: lat, lon: long, acc: acc, col: clientColor, id: clientID });
+    socket.emit('location', { lat: lat, lon: long, acc: acc, col: clientColor, name: clientName, id: clientID });
 }
 
 function errorHandler(err) {
@@ -63,15 +63,23 @@ function getLocationUpdate(){
 
 }
 
+function getName(){
+    var name = prompt("Bitte gib deinen Namen ein:", "");
+    localStorage.setItem('name', name);
+    return name;
+}
+
 var clientID = localStorage.getItem('id') || generateID();
 var clientColor = localStorage.getItem('col') || generateColor();
+var clientName = localStorage.getItem('name') || getName();
 
 socket.on('location', function(client){
     var lat = client.lat;
     var lon = client.lon;
     var id = client.id;
     var col = client.col;
-
+    var name = client.name;
+    
     if (!mymap) {
         mymap = L.map('mapid').setView([lat, lon], 13);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
