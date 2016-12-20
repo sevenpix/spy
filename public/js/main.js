@@ -43,7 +43,6 @@ function errorHandler(err) {
     if(err.code == 1) {
         alert("Error: Access is denied!");
     }
-
     else if( err.code == 2) {
         alert("Error: Position is unavailable!");
     }
@@ -51,7 +50,6 @@ function errorHandler(err) {
 
 // Watches the current position and updates it
 function getLocationUpdate(){
-
     if(navigator.geolocation){
         var options = {
           enableHighAccuracy: true,
@@ -59,11 +57,9 @@ function getLocationUpdate(){
         geoLoc = navigator.geolocation;
         watchID = geoLoc.watchPosition(getLocation, errorHandler, options);
     }
-
     else{
         alert("Sorry, browser does not support geolocation!");
     }
-
 }
 
 // Gets the current name of the user
@@ -95,7 +91,6 @@ socket.on('location', function(client){
         }).addTo(mymap);
     }
 
-    // Creates the circle marker
     if (!areasInitialized) {
         areas.push(createAreaOfInterest([47.722932, 13.089180], 30)); // spar
         areas.push(createAreaOfInterest([47.724271, 13.086316], 40)); // fh entrance
@@ -105,7 +100,7 @@ socket.on('location', function(client){
         areasInitialized = true;
     }
 
-
+    // Creates the circle marker
     var circle = L.circleMarker([lat, lon], {
         color: col,
         fillOpacity: 0.8,
@@ -125,8 +120,6 @@ socket.on('location', function(client){
         clients[id].setLatLng([lat, lon]).setStyle({color: col});
     }
 
-
-
     areas.forEach(function(area) {
         var numberOfClientsInArea = 0
         for (clientId in clients) {
@@ -142,16 +135,14 @@ socket.on('location', function(client){
             }
         }
     })
-
 });
-
 
 function createAreaOfInterest(circleCenter, circleRadius) {
     var area = L.circle(circleCenter, {
         color: "#FFFFFF",
         fillOpacity: 0.4,
         radius: circleRadius
-    })
+    });
     area.addTo(mymap);
     return area
 }
@@ -160,10 +151,8 @@ function isInArea(position, area) {
     return (position.distanceTo(area.getLatLng()) <= area.getRadius())
 }
 
-var areas = []
+var areas = [];
 
 $(function() {
-
     getLocationUpdate();
-
 });
