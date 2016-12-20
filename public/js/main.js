@@ -93,9 +93,9 @@ socket.on('location', function(client){
 
     if (!areasInitialized) {
         areas.push(createAreaOfInterest([47.722932, 13.089180], 30)); // spar
-        areas.push(createAreaOfInterest([47.724271, 13.086316], 30)); // fh entrance
-        areas.push(createAreaOfInterest([47.723525, 13.087985], 30)); // parking lot
-        areas.push(createAreaOfInterest([47.723747, 13.086897], 30)); // fh project room for testing
+        areas.push(createAreaOfInterest([47.724271, 13.086316], 40)); // fh entrance
+        areas.push(createAreaOfInterest([47.723525, 13.087985], 20)); // parking lot
+        areas.push(createAreaOfInterest([47.723747, 13.086897], 5)); // fh project room for testing
         
         areasInitialized = true;
     }
@@ -139,7 +139,7 @@ socket.on('location', function(client){
 function createAreaOfInterest(circleCenter, circleRadius) {
     var area = L.circle(circleCenter, {
         color: "#FFFFFF",
-        fillOpacity: 0.8,
+        fillOpacity: 0.4,
         radius: circleRadius
     })
     area.addTo(mymap);
