@@ -10,7 +10,9 @@ function generateID() {
             .toString(16)
             .substring(1);
     }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    var id = s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    localStorage.setItem('id', id);
+    return id;
 }
 
 function generateColor() {
@@ -60,7 +62,8 @@ function getLocationUpdate(){
 
 }
 
-var clientID = generateID();
+var clientID = localStorage.getItem('id') || generateID();
+console.log(clientID);
 var clientColor = generateColor();
 
 socket.on('location', function(client){
