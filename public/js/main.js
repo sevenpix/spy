@@ -63,10 +63,15 @@ function getLocationUpdate(){
 }
 
 // Gets the current name of the user
-function setName(name){
-    var name = prompt('Bitte gib deinen Namen ein:', name);
-    if(name === null) {
-      name = 'anonymous 👻';
+function setName(username){
+    var name = prompt('Bitte gib deinen Namen ein:', username);
+
+    if (!username){
+        username = "Anonymous 👻";
+    }
+
+    if(name === null || name === '') {
+      name = username;
     }
     localStorage.setItem('name', name);
     return name;
