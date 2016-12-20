@@ -79,7 +79,7 @@ socket.on('location', function(client){
     var id = client.id;
     var col = client.col;
     var name = client.name;
-    
+
     if (!mymap) {
         mymap = L.map('mapid').setView([lat, lon], 13);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -92,10 +92,11 @@ socket.on('location', function(client){
 
     var circle = L.circleMarker([lat, lon], {
         color: col,
-        // fillColor: '#fff',
         fillOpacity: 0.8,
         radius: 7
     });
+
+    circle.bindPopup(name);
 
     if (!(id in clients)){
         clients[id] = circle.addTo(mymap);
