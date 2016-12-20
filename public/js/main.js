@@ -109,7 +109,7 @@ socket.on('location', function(client){
 
     circle.bindPopup(name);
 
-    if (!(id in clients)){
+    if (!(id in clients)) {
         // Saves the new generatet circle in an object
         clients[id] = circle.addTo(mymap);
         // Appends the available users to a list
@@ -122,8 +122,8 @@ socket.on('location', function(client){
     }
 
     areas.forEach(function(area) {
-        var numberOfClientsInArea = 0
-        for (clientId in clients) {
+        var numberOfClientsInArea = 0;
+        for (var clientId in clients) {
             if (isInArea(clients[clientId].getLatLng(), area)) {
                 numberOfClientsInArea++;
             }
@@ -135,7 +135,7 @@ socket.on('location', function(client){
                 area.setStyle({color: "#FFFFFF"});
             }
         }
-    })
+    });
 });
 
 function createAreaOfInterest(circleCenter, circleRadius) {
@@ -145,11 +145,11 @@ function createAreaOfInterest(circleCenter, circleRadius) {
         radius: circleRadius
     });
     area.addTo(mymap);
-    return area
+    return area;
 }
 
 function isInArea(position, area) {
-    return (position.distanceTo(area.getLatLng()) <= area.getRadius())
+    return (position.distanceTo(area.getLatLng()) <= area.getRadius());
 }
 
 var areas = [];
@@ -157,7 +157,7 @@ var areas = [];
 $(function() {
     getLocationUpdate();
 
-    $('#user').click(function () {
+    $('#user').on('click', function() {
         clientName = setName();
     });
 });

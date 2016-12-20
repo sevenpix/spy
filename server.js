@@ -9,10 +9,6 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/map', function(req, res) {
-  res.sendFile(__dirname + '/public/leaflet.html');
-});
-
 io.on('connection', function(socket) {
   socket.on('location', function(location) {
     io.emit('location', location);
