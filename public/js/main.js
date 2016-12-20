@@ -79,11 +79,11 @@ socket.on('location', function(client){
         }).addTo(mymap);
     }
 
-    var circle = L.circle([lat, lon], {
+    var circle = L.circleMarker([lat, lon], {
         color: col,
         // fillColor: '#fff',
         fillOpacity: 0.8,
-        radius: 10
+        radius: 7
     });
 
     if (!(id in clients)){
