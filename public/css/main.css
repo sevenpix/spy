@@ -162,7 +162,18 @@ nav a:hover {
     height:100%;
 }
 
-
+#user {
+    font-size: .8em;
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    background: #fff;
+    color: #000;
+    z-index: 1000;
+    padding: .5em;
+    border-radius: 4px;
+    list-style: none;
+}
 
 
 

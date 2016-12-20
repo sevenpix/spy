@@ -4,6 +4,7 @@ var socket = io();
 var mymap;
 var clients = {};
 
+// Generates a unique ID
 function generateID() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -11,28 +12,28 @@ function generateID() {
             .substring(1);
     }
     var id = s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    // Stores it in the local storage of the device
     localStorage.setItem('id', id);
     return id;
 }
 
+// Generates a random HEX color
 function generateColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
     for (var i = 0; i < 6; i++ ) {
         color += letters[Math.floor(Math.random() * 16)];
     }
+    // Stores it in the local storage of the device
     localStorage.setItem('col', color);
     return color;
 }
 
+// Gets the current position and sends it to the server
 function getLocation(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
     var acc = position.coords.accuracy;
-
-    $('.lat').append(lat + "<br>");
-    $('.long').append(long + "<br>");
-    $('.acc').append(acc + "<br>");
 
     socket.emit('location', { lat: lat, lon: long, acc: acc, col: clientColor, name: clientName, id: clientID });
 }
@@ -47,6 +48,7 @@ function errorHandler(err) {
     }
 }
 
+// Watches the current position and updates it
 function getLocationUpdate(){
 
     if(navigator.geolocation){
@@ -63,6 +65,7 @@ function getLocationUpdate(){
 
 }
 
+// Gets the current name of the user
 function getName(){
     var name = prompt("Bitte gib deinen Namen ein:", "");
     localStorage.setItem('name', name);
@@ -73,6 +76,7 @@ var clientID = localStorage.getItem('id') || generateID();
 var clientColor = localStorage.getItem('col') || generateColor();
 var clientName = localStorage.getItem('name') || getName();
 
+// Retrieves the information from the server
 socket.on('location', function(client){
     var lat = client.lat;
     var lon = client.lon;
@@ -90,6 +94,7 @@ socket.on('location', function(client){
         }).addTo(mymap);
     }
 
+    // Creates the circle marker
     var circle = L.circleMarker([lat, lon], {
         color: col,
         fillOpacity: 0.8,
@@ -99,8 +104,13 @@ socket.on('location', function(client){
     circle.bindPopup(name);
 
     if (!(id in clients)){
+        // Saves the new generatet circle in an object
         clients[id] = circle.addTo(mymap);
+        // Appends the available users to a list
+        var userEl = $("<li></li>").text(name).css("color", col);
+        $('#user').append(userEl);
     } else {
+        // Updates the position of the circle
         clients[id].setLatLng([lat, lon]).setStyle({color: col});
     }
 
