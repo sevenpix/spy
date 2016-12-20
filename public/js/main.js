@@ -21,6 +21,7 @@ function generateColor() {
     for (var i = 0; i < 6; i++ ) {
         color += letters[Math.floor(Math.random() * 16)];
     }
+    localStorage.setItem('col', color);
     return color;
 }
 
@@ -63,8 +64,7 @@ function getLocationUpdate(){
 }
 
 var clientID = localStorage.getItem('id') || generateID();
-console.log(clientID);
-var clientColor = generateColor();
+var clientColor = localStorage.getItem('col') || generateColor();
 
 socket.on('location', function(client){
     var lat = client.lat;
