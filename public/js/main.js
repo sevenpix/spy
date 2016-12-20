@@ -93,7 +93,7 @@ socket.on('location', function(client){
     var circle = L.circleMarker([lat, lon], {
         color: col,
         fillOpacity: 0.8,
-        radius: 7
+        radius: 15
     });
 
     circle.bindPopup(name);
