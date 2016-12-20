@@ -41,10 +41,10 @@ function getLocation(position) {
 
 function errorHandler(err) {
     if(err.code == 1) {
-        alert("Error: Access is denied!");
+        alert('Error: Access is denied!');
     }
     else if( err.code == 2) {
-        alert("Error: Position is unavailable!");
+        alert('Error: Position is unavailable!');
     }
 }
 
@@ -58,13 +58,16 @@ function getLocationUpdate(){
         watchID = geoLoc.watchPosition(getLocation, errorHandler, options);
     }
     else{
-        alert("Sorry, browser does not support geolocation!");
+        alert('Sorry, browser does not support geolocation!');
     }
 }
 
 // Gets the current name of the user
 function setName(){
-    var name = prompt("Bitte gib deinen Namen ein:", "");
+    var name = prompt('Bitte gib deinen Namen ein:', '');
+    if(name === null) {
+      name = 'anonymous 👻';
+    }
     localStorage.setItem('name', name);
     return name;
 }
@@ -113,7 +116,7 @@ socket.on('location', function(client){
         // Saves the new generatet circle in an object
         clients[id] = circle.addTo(mymap);
         // Appends the available users to a list
-        var userEl = $('<li id="user-' + id + '"></li>').text(name).css("color", col);
+        var userEl = $('<li id="user-' + id + '"></li>').text(name).css('color', col);
         $('#user').append(userEl);
     } else {
         // Updates the position of the circle
@@ -129,10 +132,10 @@ socket.on('location', function(client){
             }
 
             if (numberOfClientsInArea > 0) {
-                area.setStyle({color: "#000000"});
+                area.setStyle({color: '#000000'});
             }
             else {
-                area.setStyle({color: "#FFFFFF"});
+                area.setStyle({color: '#FFFFFF'});
             }
         }
     });
@@ -140,7 +143,7 @@ socket.on('location', function(client){
 
 function createAreaOfInterest(circleCenter, circleRadius) {
     var area = L.circle(circleCenter, {
-        color: "#FFFFFF",
+        color: '#FFFFFF',
         fillOpacity: 0.4,
         radius: circleRadius
     });
