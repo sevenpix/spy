@@ -173,6 +173,7 @@ nav a:hover {
     padding: .5em;
     border-radius: 4px;
     list-style: none;
+    cursor: pointer;
 }
 
 

@@ -63,7 +63,7 @@ function getLocationUpdate(){
 }
 
 // Gets the current name of the user
-function getName(){
+function setName(){
     var name = prompt("Bitte gib deinen Namen ein:", "");
     localStorage.setItem('name', name);
     return name;
@@ -71,7 +71,7 @@ function getName(){
 
 var clientID = localStorage.getItem('id') || generateID();
 var clientColor = localStorage.getItem('col') || generateColor();
-var clientName = localStorage.getItem('name') || getName();
+var clientName = localStorage.getItem('name') || setName();
 
 // Retrieves the information from the server
 socket.on('location', function(client){
@@ -155,4 +155,8 @@ var areas = [];
 
 $(function() {
     getLocationUpdate();
+
+    $('#user').click(function () {
+        setName();
+    });
 });
