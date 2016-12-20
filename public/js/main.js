@@ -22,6 +22,7 @@ function generateColor() {
     for (var i = 0; i < 6; i++ ) {
         color += letters[Math.floor(Math.random() * 16)];
     }
+    localStorage.setItem('col', color);
     return color;
 }
 
@@ -34,7 +35,7 @@ function getLocation(position) {
     $('.long').append(long + "<br>");
     $('.acc').append(acc + "<br>");
 
-    socket.emit('location', { lat: lat, lon: long, acc: acc, col: clientColor, id: clientID });
+    socket.emit('location', { lat: lat, lon: long, acc: acc, col: clientColor, name: clientName, id: clientID });
 }
 
 function errorHandler(err) {
@@ -63,15 +64,22 @@ function getLocationUpdate(){
 
 }
 
+function getName(){
+    var name = prompt("Bitte gib deinen Namen ein:", "");
+    localStorage.setItem('name', name);
+    return name;
+}
+
 var clientID = localStorage.getItem('id') || generateID();
-console.log(clientID);
-var clientColor = generateColor();
+var clientColor = localStorage.getItem('col') || generateColor();
+var clientName = localStorage.getItem('name') || getName();
 
 socket.on('location', function(client){
     var lat = client.lat;
     var lon = client.lon;
     var id = client.id;
     var col = client.col;
+    var name = client.name;
 
     if (!mymap) {
         mymap = L.map('mapid').setView([lat, lon], 13);
@@ -95,10 +103,11 @@ socket.on('location', function(client){
 
     var circle = L.circleMarker([lat, lon], {
         color: col,
-        // fillColor: '#fff',
         fillOpacity: 0.8,
-        radius: 7
+        radius: 15
     });
+
+    circle.bindPopup(name);
 
     if (!(id in clients)){
         clients[id] = circle.addTo(mymap);
