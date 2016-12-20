@@ -3,6 +3,7 @@ var geoLoc;
 var socket = io();
 var mymap;
 var clients = {};
+var areasInitialized = false;
 
 function generateID() {
     function s4() {
@@ -90,6 +91,16 @@ socket.on('location', function(client){
         }).addTo(mymap);
     }
 
+    if (!areasInitialized) {
+        areas.push(createAreaOfInterest([47.722932, 13.089180], 30)); // spar
+        areas.push(createAreaOfInterest([47.724271, 13.086316], 30)); // fh entrance
+        areas.push(createAreaOfInterest([47.723525, 13.087985], 30)); // parking lot
+        areas.push(createAreaOfInterest([47.723747, 13.086897], 30)); // fh project room for testing
+        
+        areasInitialized = true;
+    }
+
+
     var circle = L.circleMarker([lat, lon], {
         color: col,
         fillOpacity: 0.8,
@@ -104,8 +115,45 @@ socket.on('location', function(client){
         clients[id].setLatLng([lat, lon]).setStyle({color: col});
     }
 
+
+
+    areas.forEach(function(area) {
+        var numberOfClientsInArea = 0
+        for (clientId in clients) {
+            if (isInArea(clients[clientId].getLatLng(), area)) {
+                numberOfClientsInArea++;
+            }
+
+            if (numberOfClientsInArea > 0) {
+                area.setStyle({color: "#000000"});
+            }
+            else {
+                area.setStyle({color: "#FFFFFF"});
+            }
+        }
+    })
+
 });
 
+
+function createAreaOfInterest(circleCenter, circleRadius) {
+    var area = L.circle(circleCenter, {
+        color: "#FFFFFF",
+        fillOpacity: 0.8,
+        radius: circleRadius
+    })
+    area.addTo(mymap);
+    return area
+}
+
+function isInArea(position, area) {
+    return (position.distanceTo(area.getLatLng()) <= area.getRadius())
+}
+
+var areas = []
+
 $(function() {
+
     getLocationUpdate();
+
 });
