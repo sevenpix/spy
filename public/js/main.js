@@ -113,11 +113,12 @@ socket.on('location', function(client){
         // Saves the new generatet circle in an object
         clients[id] = circle.addTo(mymap);
         // Appends the available users to a list
-        var userEl = $("<li></li>").text(name).css("color", col);
+        var userEl = $('<li id="user-' + id + '"></li>').text(name).css("color", col);
         $('#user').append(userEl);
     } else {
         // Updates the position of the circle
         clients[id].setLatLng([lat, lon]).setStyle({color: col});
+        $('li#user-' + id).text(name);
     }
 
     areas.forEach(function(area) {
@@ -157,6 +158,6 @@ $(function() {
     getLocationUpdate();
 
     $('#user').click(function () {
-        setName();
+        clientName = setName();
     });
 });
