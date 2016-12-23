@@ -1,2 +1,3 @@
-# Spy: Node Device Tracker
-track multiple devices on a map
+# Spy: Node Device Locator
+
+This app locates multiple devices and shows it on a map.

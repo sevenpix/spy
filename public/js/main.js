@@ -23,7 +23,7 @@ function generateColor() {
     var letters = '0123456789ABCD';
     var color = '#';
     for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * 14)];
     }
     // Stores it in the local storage of the device
     localStorage.setItem('col', color);
@@ -64,7 +64,7 @@ function getLocationUpdate(){
 
 // Gets the current name of the user
 function setName(username){
-    var name = prompt('Bitte gib deinen Namen ein:', username);
+    var name = prompt('Please enter your name:', username);
 
     if (!username){
         username = "Anonymous 👻";
