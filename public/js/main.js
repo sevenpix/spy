@@ -41,10 +41,10 @@ function getLocation(position) {
 
 function errorHandler(err) {
     if(err.code == 1) {
-        alert('Error: Maybe you don\'t use https.');
+        alert('Error: Maybe your location service isn\'t enabled.');
     }
     else if( err.code == 2) {
-        alert('Error: Maybe your location service isn\'t enabled.');
+        alert('Error: Maybe you don\'t use https.');
     }
 }
 
