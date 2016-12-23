@@ -104,6 +104,7 @@ socket.on('location', function(client){
         areas.push(createAreaOfInterest([47.724271, 13.086316], 40)); // fh entrance
         areas.push(createAreaOfInterest([47.723525, 13.087985], 20)); // parking lot
         areas.push(createAreaOfInterest([47.723747, 13.086897], 5)); // fh project room for testing
+        areas.push(createAreaOfInterest([47.812872, 13.045950], 120)); // Salzburg main station
 
         areasInitialized = true;
     }
