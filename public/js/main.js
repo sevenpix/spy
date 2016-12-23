@@ -41,10 +41,10 @@ function getLocation(position) {
 
 function errorHandler(err) {
     if(err.code == 1) {
-        alert('Error: Access is denied!');
+        alert('Error: Maybe you don\'t use https.');
     }
     else if( err.code == 2) {
-        alert('Error: Position is unavailable!');
+        alert('Error: Maybe your location service isn\'t enabled.');
     }
 }
 
