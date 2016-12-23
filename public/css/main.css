@@ -183,7 +183,7 @@ nav a:hover {
     text-overflow: ellipsis;
 }
 
-.leaflet-control-container {
+.leaflet-control-zoom {
     display: none;
 }
 
@@ -229,7 +229,7 @@ nav a:hover {
 Author's custom styles
 ==================================== */
 
-    .leaflet-control-container {
+    .leaflet-control-zoom {
         display: block;
     }
 
