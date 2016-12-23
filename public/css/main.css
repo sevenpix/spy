@@ -154,9 +154,9 @@ nav a:hover {
     padding-top: 20px;
 }
 
-/* ==========================================================================
+/* ====================================
    Author's custom styles
-   ========================================================================== */
+   ==================================== */
 
 #mapid {
     height:100%;
@@ -183,12 +183,9 @@ nav a:hover {
     text-overflow: ellipsis;
 }
 
-
-
-
-
-
-
+.leaflet-control-container {
+    display: none;
+}
 
 /* ==========================================================================
    Media Queries
@@ -227,6 +224,15 @@ nav a:hover {
     .oldie nav a {
         margin: 0 0.7%;
     }
+
+/* ====================================
+Author's custom styles
+==================================== */
+
+    .leaflet-control-container {
+        display: block;
+    }
+
 }
 
 @media only screen and (min-width: 768px) {
